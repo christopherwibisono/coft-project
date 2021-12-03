@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CoftDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="foodImg">
+          <Key>
+            <PropertyRef Name="imgFId" />
+          </Key>
+          <Property Name="imgFId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imgFLink" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="foodId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Foods">
+          <Key>
+            <PropertyRef Name="foodId" />
+          </Key>
+          <Property Name="foodId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="foodDetails" Type="varchar" MaxLength="255" />
+          <Property Name="foodIngredients" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="ingredientImg">
+          <Key>
+            <PropertyRef Name="imgIngId" />
+          </Key>
+          <Property Name="imgIngId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imgIngLink" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ingredientID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingredients">
+          <Key>
+            <PropertyRef Name="ingredientID" />
+          </Key>
+          <Property Name="ingredientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ingredientDetails" Type="varchar" MaxLength="255" />
+          <Property Name="ingredientSubs" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userEmail" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="userPassword" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="userMemship" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__foodImg__foodId__3A81B327">
+          <End Role="Foods" Type="Self.Foods" Multiplicity="1" />
+          <End Role="foodImg" Type="Self.foodImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foods">
+              <PropertyRef Name="foodId" />
+            </Principal>
+            <Dependent Role="foodImg">
+              <PropertyRef Name="foodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ingredien__ingre__3B75D760">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1" />
+          <End Role="ingredientImg" Type="Self.ingredientImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="ingredientID" />
+            </Principal>
+            <Dependent Role="ingredientImg">
+              <PropertyRef Name="ingredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoftDatabaseModelStoreContainer">
+          <EntitySet Name="foodImg" EntityType="Self.foodImg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Foods" EntityType="Self.Foods" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ingredientImg" EntityType="Self.ingredientImg" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__foodImg__foodId__3A81B327" Association="Self.FK__foodImg__foodId__3A81B327">
+            <End Role="Foods" EntitySet="Foods" />
+            <End Role="foodImg" EntitySet="foodImg" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ingredien__ingre__3B75D760" Association="Self.FK__ingredien__ingre__3B75D760">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="ingredientImg" EntitySet="ingredientImg" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CoftDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="foodImg">
+          <Key>
+            <PropertyRef Name="imgFId" />
+          </Key>
+          <Property Name="imgFId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imgFLink" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="foodId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Food" Relationship="Self.FK__foodImg__foodId__3A81B327" FromRole="foodImg" ToRole="Foods" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="foodId" />
+          </Key>
+          <Property Name="foodId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="foodDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="foodIngredients" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="foodImgs" Relationship="Self.FK__foodImg__foodId__3A81B327" FromRole="Foods" ToRole="foodImg" />
+        </EntityType>
+        <EntityType Name="ingredientImg">
+          <Key>
+            <PropertyRef Name="imgIngId" />
+          </Key>
+          <Property Name="imgIngId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imgIngLink" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ingredientID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ingredient" Relationship="Self.FK__ingredien__ingre__3B75D760" FromRole="ingredientImg" ToRole="Ingredients" />
+        </EntityType>
+        <EntityType Name="Ingredient">
+          <Key>
+            <PropertyRef Name="ingredientID" />
+          </Key>
+          <Property Name="ingredientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ingredientDetails" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ingredientSubs" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ingredientImgs" Relationship="Self.FK__ingredien__ingre__3B75D760" FromRole="Ingredients" ToRole="ingredientImg" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userId" />
+          </Key>
+          <Property Name="userId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="userMemship" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__foodImg__foodId__3A81B327">
+          <End Role="Foods" Type="Self.Food" Multiplicity="1" />
+          <End Role="foodImg" Type="Self.foodImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Foods">
+              <PropertyRef Name="foodId" />
+            </Principal>
+            <Dependent Role="foodImg">
+              <PropertyRef Name="foodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ingredien__ingre__3B75D760">
+          <End Role="Ingredients" Type="Self.Ingredient" Multiplicity="1" />
+          <End Role="ingredientImg" Type="Self.ingredientImg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="ingredientID" />
+            </Principal>
+            <Dependent Role="ingredientImg">
+              <PropertyRef Name="ingredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CoftDatabaseEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="foodImgs" EntityType="Self.foodImg" />
+          <EntitySet Name="Foods" EntityType="Self.Food" />
+          <EntitySet Name="ingredientImgs" EntityType="Self.ingredientImg" />
+          <EntitySet Name="Ingredients" EntityType="Self.Ingredient" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__foodImg__foodId__3A81B327" Association="Self.FK__foodImg__foodId__3A81B327">
+            <End Role="Foods" EntitySet="Foods" />
+            <End Role="foodImg" EntitySet="foodImgs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ingredien__ingre__3B75D760" Association="Self.FK__ingredien__ingre__3B75D760">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="ingredientImg" EntitySet="ingredientImgs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CoftDatabaseModelStoreContainer" CdmEntityContainer="CoftDatabaseEntities2">
+          <EntitySetMapping Name="foodImgs">
+            <EntityTypeMapping TypeName="CoftDatabaseModel.foodImg">
+              <MappingFragment StoreEntitySet="foodImg">
+                <ScalarProperty Name="imgFId" ColumnName="imgFId" />
+                <ScalarProperty Name="imgFLink" ColumnName="imgFLink" />
+                <ScalarProperty Name="foodId" ColumnName="foodId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foods">
+            <EntityTypeMapping TypeName="CoftDatabaseModel.Food">
+              <MappingFragment StoreEntitySet="Foods">
+                <ScalarProperty Name="foodId" ColumnName="foodId" />
+                <ScalarProperty Name="foodDetails" ColumnName="foodDetails" />
+                <ScalarProperty Name="foodIngredients" ColumnName="foodIngredients" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ingredientImgs">
+            <EntityTypeMapping TypeName="CoftDatabaseModel.ingredientImg">
+              <MappingFragment StoreEntitySet="ingredientImg">
+                <ScalarProperty Name="imgIngId" ColumnName="imgIngId" />
+                <ScalarProperty Name="imgIngLink" ColumnName="imgIngLink" />
+                <ScalarProperty Name="ingredientID" ColumnName="ingredientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredients">
+            <EntityTypeMapping TypeName="CoftDatabaseModel.Ingredient">
+              <MappingFragment StoreEntitySet="Ingredients">
+                <ScalarProperty Name="ingredientID" ColumnName="ingredientID" />
+                <ScalarProperty Name="ingredientDetails" ColumnName="ingredientDetails" />
+                <ScalarProperty Name="ingredientSubs" ColumnName="ingredientSubs" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="CoftDatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="userEmail" ColumnName="userEmail" />
+                <ScalarProperty Name="userPassword" ColumnName="userPassword" />
+                <ScalarProperty Name="userMemship" ColumnName="userMemship" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
