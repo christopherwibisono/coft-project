@@ -1,0 +1,1 @@
+﻿insert into Users values('User1@gmail.com','12345','Member')
