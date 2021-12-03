@@ -1,0 +1,10 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    font-family: 'Segoe UI', Verdana, sans-serif;
+}
+
+.LoginRegis {
+    margin-right: 20px;
+}
